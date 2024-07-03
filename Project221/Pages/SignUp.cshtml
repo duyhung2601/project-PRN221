@@ -1,0 +1,87 @@
+﻿@page
+@model Project221.Pages.SignUpModel
+@{
+    Layout = null;
+}
+
+<html>
+<head>
+    <title>Sign Up Page</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="~/l/bootstrap/css/bootstrap.min.css" rel="stylesheet" />  
+    <link href="~/l/css/main.css" rel="stylesheet" />
+</head>
+<body>
+
+    
+
+    <div class="area">
+    <ul class="circles">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+
+        <div class="header">
+            
+            <p class="headerText">YOUR NAME</p>
+        </div>
+    
+        <div class="card" style="margin-top: 5%; margin-left:auto; margin-right:auto; width:450px; height: 500px;">
+            <div class="card-body">
+              <p style="font-size: 25px; font-weight: bold;">SIGN UP</p>
+    <form method="post" >
+                <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Username</label>
+                <input type="text" class="form-control" id="name" name="name" aria-describedby="emailHelp" placeholder="Your username">
+                </div>
+    
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="email1" name="email1" aria-describedby="emailHelp" placeholder="Your email">
+                    </div>
+    
+                <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="password1" name="password1"  placeholder="Your password">
+                </div>
+    
+                <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">Password again</label>
+                    <input type="password" class="form-control" id="repassword" name="repassword"  placeholder="Your password again">
+                </div>
+    
+                <button type="submit" class="btn btn-primary">SIGN UP</button>
+                @if (Model.Notification != null)
+    {
+        <p style="color:red">@Model.Notification</p>
+    }
+     @if (Model.userError != null)
+    {
+        <p style="color:red">@Model.userError</p>
+    }
+     @if (Model.repassError != null)
+    {
+        <p style="color:red">@Model.repassError</p>
+    }
+    @{ 
+    // Gọi phương thức OnGet() của trang CheckOTPModel
+    Model.OnGet();
+}
+     </form>  
+            </div>
+          </div>
+
+    </ul>
+    </div>
+    </body>
+</html>
+

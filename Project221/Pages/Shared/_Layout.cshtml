@@ -1,0 +1,108 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Project221</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Project221.styles.css" asp-append-version="true" />
+     <link rel="apple-touch-icon" href="~/assets/img/apple-icon.png">
+    <link rel="shortcut icon" type="image/x-icon" href="~/assets/img/favicon.ico">
+
+    <link rel="stylesheet" href="~/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/assets/css/templatemo.css">
+    <link rel="stylesheet" href="~/assets/css/custom.css">
+
+    <!-- Load fonts style after rendering the layout styles -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
+    <link rel="stylesheet" href="~/assets/css/fontawesome.min.css">
+</head>
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+<body>
+     
+
+
+    <!-- Header -->
+    <nav class="navbar navbar-expand-lg navbar-light shadow">
+        <div class="container d-flex justify-content-between align-items-center">
+
+            
+
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#templatemo_main_nav" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="align-self-center collapse navbar-collapse flex-fill  d-lg-flex justify-content-lg-between" id="templatemo_main_nav">
+                <div class="flex-fill">
+                    <ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="~/index">Home</a>
+                        </li>
+                       
+                        <li class="nav-item">
+                            <a class="nav-link" href="~/products">Shop</a>
+                        </li> @if (Context.Session.GetString("isAdmin") != null)
+                    { 
+                        <li class="nav-item">
+                            <a class="nav-link" href="~/Orders/index">ManagerOrder</a>
+                        </li>
+                        
+                        
+                         <li class="nav-item">
+                            <a class="nav-link" href="~/Productts/index">ManageProduct</a>
+                        </li>
+                        
+                    }
+                    </ul>
+                    
+                </div>
+                <div class="navbar align-self-center d-flex">  @*giỏ hàng *@
+                    @*<div class="d-lg-none flex-sm-fill mt-3 mb-4 col-7 col-sm-auto pr-3">
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="inputMobileSearch" placeholder="Search ...">
+                            <div class="input-group-text">
+                                <i class="fa fa-fw fa-search"></i>
+                            </div>
+                        </div>
+                    </div>*@
+                    <a class="nav-icon d-none d-lg-inline" href="#" data-bs-toggle="modal" data-bs-target="#templatemo_search">
+                        <i class="fa fa-fw fa-search text-dark mr-2"></i>
+                    </a>@if(Context.Session.GetString("isAdmin")!="1"){
+                        <a class="nav-icon position-relative text-decoration-none" href="~/Addtocart"> @*1*@
+                            <i class="fa fa-fw fa-cart-arrow-down text-dark mr-1"></i>
+                        <span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark">@Context.Request.Cookies["quantityCart"]</span>
+                    </a>}
+                    <a class="nav-icon position-relative text-decoration-none" href="~/login">
+                        <i class="fa fa-fw fa-user text-dark mr-3"></i>
+                        <span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark"></span>
+                    </a>
+                    <a href="~/logout"><ion-icon name="log-out-outline" ></ion-icon></a>
+
+                </div>
+            </div>
+
+        </div>
+    </nav>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    
+     <!-- Start Script -->
+    <script src="~/assets/js/jquery-1.11.0.min.js"></script>
+    <script src="~/assets/js/jquery-migrate-1.2.1.min.js"></script>
+    <script src="~/assets/js/bootstrap.bundle.min.js"></script>
+    <script src="~/assets/js/templatemo.js"></script>
+    <script src="~/assets/js/custom.js"></script>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

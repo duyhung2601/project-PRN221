@@ -1,0 +1,60 @@
+﻿@page
+@model Project221.Pages.ProductDetailModel
+@{
+}
+<style>
+    p.product-name {
+        font-size: 30px;
+        margin-top: 60px;
+    }
+
+    img {
+        width: 500px;
+    }
+    .product {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    button.btn-add {
+        border: 0;
+        padding: 8px;
+        background-color: azure;
+        color:brown;
+        border-radius: 5px;
+    }
+
+    .item-product {
+        width: 400px;
+        margin-left: 40px;
+    }
+
+    p.product-price {
+        font-size: 40px;
+    }
+
+    input[type="number"] {
+        width: 40px;
+    }
+</style><body>
+<p class="product-name">@Model.product.ProductName</p>
+<form asp-page-handler="AddCart" method="post">
+    <div class="product">
+        <img src="~/ImgPRN/@Model.product.ProductImage" /><br />@* ~/ImgPRN/@Html.DisplayFor(modelItem => item.ProductImage)*@
+        <div class="item-product">
+            <p class="product-price">@Model.product.Price.ToString("N0")đ</p>
+            <div>
+                <b>Category:@Model.product.Category.CategoryName</b><br />
+                <p>@Model.product.Description</p>
+                <label><b>Quantity:</b></label>
+                <input type="number" name="quantity" value="1" min="1" />
+            </div>
+                <p> 
+                        <button class="btn-add" type="submit" asp-page-handler="AddCart" asp-route-id="@Model.product.Id">Add To Cart</button>
+                    
+                </p>
+        </div>
+    </div>
+</form>
+
+</body>

@@ -1,0 +1,126 @@
+﻿@page
+@using Project221.Models
+@model Project221.Pages.AddtocartModel
+@{
+   
+}
+<link href="~/css/stylesheet.css" rel="stylesheet" />
+@if (Model.listProduct == null)
+{
+    <h1>Bạn ko có sản phảm nào thêm vào cart</h1>
+}else{<body>
+    
+<div class="container">
+    <div class="checkoutLayout">
+
+        
+        <div class="returnCart">
+            <a href="/">keep shopping</a>
+            <h1>List Product in Cart</h1>
+            <form method="post" id="pay" asp-page-handler="Pay">
+            @foreach (var p in Model.listProduct as List<CartItem>)
+                    {
+            <div class="list"> @*thẻ rend product*@
+
+                <div class="item">
+                    <input type="hidden" name="productId" value="@p.product.Id">
+                    <img src="~/ImgPRN/@p.product.ProductImage">
+                    <div class="info">
+                        <div class="name">@p.product.ProductName</div>
+                        
+                    </div>
+                    <p class="price"  data-price="@p.product.Price">@p.product.Price</p>
+                <input type="hidden" id="price" name="price" value="@p.product.Price" />
+                <input type="number" id="quantity" name="quantity" min="1" value="@p.quantity" onclick="calculateTotalAll();calculateTotalQuantity()" />
+                </div>
+
+            </div> } </form>
+        </div>
+
+
+        <div class="right">
+            <h1>Checkout</h1>
+
+            <div class="form">
+                <div class="group">
+                    <label for="name">Full Name</label>
+                    <input type="text" name="name" id="name" value="@HttpContext.Session.GetString("name12")" >
+                </div>
+    
+                
+    
+                <div class="group">
+                    <label for="address">Address</label>
+                    <input type="text" name="address" id="address">
+                </div>
+    
+               
+    
+          
+            </div>
+            <div class="return">
+                <div class="row">
+                    <div>Total Quantity</div>
+                    <div class="totalQuantity"><span id="total-pr"></span></div>
+                </div>
+                <div class="row">
+                    <div>Total Price</div>
+                    <div class="totalPrice"><span id="total-all"></span></div>
+                </div>
+            </div>
+            <button class="buttonCheckout" onclick="payProduct()">CHECKOUT</button>
+            </div>
+    </div>
+</div>
+
+
+
+
+</body>}
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        calculateTotalAll();
+    });
+</script>
+<script>
+    function deleteProduct() {
+        document.getElementById('delete').submit();
+    }
+    function payProduct() {
+        const confirmed = confirm('Do you want to pay');
+        if (confirmed) {
+            document.getElementById('pay').submit();
+        } else {
+            console.log('User canceled payment');
+        }
+    }  
+    function calculateTotalQuantity() {
+    let totalQuantity = 0;
+    const products = document.querySelectorAll('.list');
+    for (let i = 0; i < products.length; i++) {
+        const quantityElement = products[i].querySelector('#quantity');
+        const quantity = parseInt(quantityElement.value);
+        totalQuantity += quantity;
+    }
+    const totalQuantityElement = document.getElementById('total-pr');
+    totalQuantityElement.innerHTML = totalQuantity.toFixed(0);
+}
+
+    function calculateTotalAll() {
+
+        let total = 0;
+        console.log('1');
+        const products = document.querySelectorAll('.list');
+        for (let i = 0; i < products.length; i++) {
+            const priceElement = products[i].querySelector('.price');
+            const quantityElement = products[i].querySelector('#quantity');
+            const price = parseFloat(priceElement.getAttribute('data-price'));
+            console.log(quantityElement);
+            const quantity = parseInt(quantityElement.value);
+            const subTotal = price * quantity;
+            total += subTotal;
+        }
+        const totalElement = document.getElementById('total-all');
+        totalElement.innerHTML = total.toFixed(0)+"đ";
+    }
+</script>
